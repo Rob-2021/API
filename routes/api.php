@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Cliente;
 use App\Http\Controllers\ClienteController;
 
+use App\Models\TipoCuenta;
+use App\Http\Controllers\TipoCuentaController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -26,3 +29,11 @@ Route::post('clientes', [ClienteController::class, 'store']);
 Route::put('clientes/{id}', [ClienteController::class, 'update']);
 Route::patch('clientes/{id}', [ClienteController::class, 'update']);
 Route::delete('clientes/{id}', [ClienteController::class, 'destroy']);
+
+
+Route::get('tipo_cuentas', [TipoCuentaController::class, 'index']);
+Route::get('tipo_cuentas/{id}', [TipoCuentaController::class, 'show']);
+Route::post('tipo_cuentas', [TipoCuentaController::class, 'store']);
+Route::put('tipo_cuentas/{id}', [TipoCuentaController::class, 'update']);
+Route::patch('tipo_cuentas/{id}', [TipoCuentaController::class, 'update']);
+Route::delete('tipo_cuentas/{id}', [TipoCuentaController::class, 'destroy']);
