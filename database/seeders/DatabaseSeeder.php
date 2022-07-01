@@ -16,9 +16,10 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
          //Cliente::factory(20)->create();
-         $this->call([
-         ClienteSeeder::class,
-        TipoCuentaSeeder::class
+        $this->call([
+        ClienteSeeder::class,
+        TipoCuentaSeeder::class,
+        UserSeeder::class
         ]);
     }
 }

@@ -8,6 +8,9 @@ use App\Http\Controllers\ClienteController;
 use App\Models\TipoCuenta;
 use App\Http\Controllers\TipoCuentaController;
 
+use App\Models\User;
+use App\Http\Controllers\UserController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -37,3 +40,10 @@ Route::post('tipo_cuentas', [TipoCuentaController::class, 'store']);
 Route::put('tipo_cuentas/{id}', [TipoCuentaController::class, 'update']);
 Route::patch('tipo_cuentas/{id}', [TipoCuentaController::class, 'update']);
 Route::delete('tipo_cuentas/{id}', [TipoCuentaController::class, 'destroy']);
+
+Route::get('users', [UserController::class, 'index']);
+Route::get('users/{id}', [UserController::class, 'show']);
+Route::post('users', [UserController::class, 'store']);
+Route::put('users/{id}', [UserController::class, 'update']);
+Route::patch('users/{id}', [UserController::class, 'update']);
+Route::delete('users/{id}', [UserController::class, 'destroy']);

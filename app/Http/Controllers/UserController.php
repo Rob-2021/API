@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TipoCuenta;
+use Firebase\JWT\JWT;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
-class TipoCuentaController extends Controller
+class UserController extends Controller
 {
+
+    public function authentication(Request $request){
+        //$usuario = User::where(['username' => $request->])
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +21,7 @@ class TipoCuentaController extends Controller
      */
     public function index()
     {
-        return TipoCuenta::all();
+        return User::all();
     }
 
     /**
@@ -35,27 +42,30 @@ class TipoCuentaController extends Controller
      */
     public function store(Request $request)
     {
-        return TipoCuenta::create($request->all());
+        /*User::create($request->name,
+        $request->email,
+        $request->hasMany(password));*/
+        return User::create($request->all());
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\TipoCuenta  $tipoCuenta
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        return TipoCuenta::find($id);
+        return User::find($id);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\TipoCuenta  $tipoCuenta
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(TipoCuenta $tipoCuenta)
+    public function edit($id)
     {
         //
     }
@@ -64,26 +74,26 @@ class TipoCuentaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\TipoCuenta  $tipoCuenta
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $tipoCuenta = TipoCuenta::findOrFail($id);
-            $tipoCuenta->update($request->all());
-            return $tipoCuenta;
+        $users = User::findOrFail($id);
+            $users->update($request->all());
+            return $users;
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\TipoCuenta  $tipoCuenta
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $tipoCuenta=TipoCuenta::findOrFail($id); 
-         $tipoCuenta->delete();
-       return $tipoCuenta ;
+        $users=User::findOrFail($id); 
+         $users->delete();
+       return $users;
     }
 }
