@@ -10,8 +10,44 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
 
-    public function authentication(Request $request){
-        //$usuario = User::where(['username' => $request->])
+    public function authenticate(Request $request)
+    {
+        $input = $request->all();
+        $usuario = User::where('email', $input['email'])->first();
+        //dd(User::where('email', $request->email)->get());
+        if (!$usuario)
+        {
+            return response()->json([
+                'success' => false,
+                'message' => 'usuario invalido',
+                
+            ], 400);
+
+        }
+        if (Hash::check($request->password,$usuario->password )) {
+            $key = env('JWT_SECRET', '');
+            $time = time();
+            $token = array(
+                'iat' => $time, // Tiempo que inició el token
+                'exp' => $time + (1200 * 60), // Tiempo que expirará el token (+1 hora)
+                'data' => [ // información del usuario
+                    'name' => $usuario->name,
+                    'email' => $usuario->email,
+                    'rol' => $usuario->rol,
+                ]
+            );
+            $jwt = JWT::encode($token, $key,'HS256');
+            return response()->json([
+                'success' => true,
+                'token' => $jwt,
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Credenciales invalidas.',
+                'username' => $request->username,
+            ], 400);
+        }
     }
 
     /**

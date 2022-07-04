@@ -26,13 +26,16 @@ use App\Http\Controllers\UserController;
 //     return $request->user();
 // });
 
-Route::get('clientes', [ClienteController::class, 'index']);
-Route::get('clientes/{id}',[ClienteController::class, 'show']);
-Route::post('clientes', [ClienteController::class, 'store']);
-Route::put('clientes/{id}', [ClienteController::class, 'update']);
-Route::patch('clientes/{id}', [ClienteController::class, 'update']);
-Route::delete('clientes/{id}', [ClienteController::class, 'destroy']);
+Route::post('login', [UserController::class, 'authenticate']);
 
+Route::group(['middleware' => ['jwt.verify']], function () {
+    Route::get('clientes', [ClienteController::class, 'index']);
+    Route::get('clientes/{id}',[ClienteController::class, 'show']);
+    Route::post('clientes', [ClienteController::class, 'store']);
+    Route::put('clientes/{id}', [ClienteController::class, 'update']);
+    Route::patch('clientes/{id}', [ClienteController::class, 'update']);
+    Route::delete('clientes/{id}', [ClienteController::class, 'destroy']);
+});
 
 Route::get('tipo_cuentas', [TipoCuentaController::class, 'index']);
 Route::get('tipo_cuentas/{id}', [TipoCuentaController::class, 'show']);
